@@ -40,9 +40,9 @@ jobs:
 
       - name: Run tests
         env:
-          SECRET_KEY: secrets.SECRET_KEY
-          HOST: secrets.DATABASE_HOST
-          NAME: secrets.DATABASE_NAME
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          HOST: ${{ secrets.DATABASE_HOST }}
+          NAME: ${{ secrets.DATABASE_NAME }}
         run: |
           python3 manage.py test
 
