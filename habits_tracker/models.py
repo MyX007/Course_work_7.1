@@ -5,7 +5,7 @@ from users.models import User
 
 
 class Day(models.Model):
-    day = models.CharField(max_length=100, unique=True, verbose_name="День недели")
+    day = models.CharField(max_length=100, unique=True, verbose_name="День недели", null=True, blank=True)
 
 
 class Habit(models.Model):
