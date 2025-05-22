@@ -1,6 +1,6 @@
 name: Django CI
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   lint:
@@ -44,6 +44,8 @@ jobs:
           HOST: ${{ secrets.DATABASE_HOST }}
           NAME: ${{ secrets.DATABASE_NAME }}
         run: |
+          python3 manage.py makemigrations --database test
+          python3 manage.py migrate --database test
           python3 manage.py test
 
 
