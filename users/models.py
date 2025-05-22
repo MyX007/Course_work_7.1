@@ -11,7 +11,7 @@ class User(AbstractUser):
         upload_to="users/", null=True, blank=True, verbose_name="Аватар"
     )
     username = None
-    email = models.EmailField(unique=True, verbose_name="E-mail")
+    email = models.EmailField(unique=True, verbose_name="E-mail", null=True, blank=True)
     city = models.CharField(
         max_length=100, verbose_name="Страна", blank=True, null=True
     )
