@@ -41,7 +41,7 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DJANGO_SETTINGS_MODULE: ./settings_test.py
+          DJANGO_SETTINGS_MODULE: Course_work_7.1.settings_test
         run: |
           python3 manage.py makemigrations
           python3 manage.py migrate
