@@ -1,6 +1,6 @@
 FROM python:3.10
 
-WORKDIR /config
+WORKDIR /myapp
 
 COPY requirements.txt ./
 RUN apt-get update \
