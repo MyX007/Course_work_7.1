@@ -41,6 +41,7 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: secrets.SECRET_KEY
+          DATABASE_HOST: secrets.DATABASE_HOST
         run: |
           python3 manage.py migrate
           python3 manage.py test
