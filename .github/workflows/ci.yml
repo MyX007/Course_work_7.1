@@ -44,7 +44,7 @@ jobs:
           HOST: ${{ secrets.DATABASE_HOST }}
           NAME: ${{ secrets.DATABASE_NAME }}
         run: |
-          python3 manage.py migrate --database test
+          python3 manage.py migrate --database ${{ secrets.DATABASE_NAME }}
           python3 manage.py test
 
 
