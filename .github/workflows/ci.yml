@@ -43,6 +43,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DJANGO_SETTINGS_MODULE: tests.settings_test
         run: |
+          python3 manage.py makemigrations
           python3 manage.py migrate
           python3 manage.py test
 
