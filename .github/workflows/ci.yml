@@ -41,10 +41,10 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          HOST: ${{ secrets.DATABASE_HOST }}
-          NAME: ${{ secrets.DATABASE_NAME }}
+          DJANGO_SETTINGS_MODULE: ~/settings_test.py
         run: |
-          python3 manage.py migrate --database ${{ secrets.DATABASE_NAME }}
+          python3 manage.py makemigrations
+          python3 manage.py migrate
           python3 manage.py test
 
 
