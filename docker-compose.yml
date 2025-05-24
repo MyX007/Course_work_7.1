@@ -2,19 +2,18 @@ services:
   web:
     build: .
     command: |
-      bash -c "source venv/bin/activate"
-      bash -c "python3 manage.py collectstatic --noinput"
-      bash -c "python3 manage.py makemigrations"
-      bash -c "python3 manage.py migrate"
-      bash -c "python3 manage.py runserver 0.0.0.0:8000"
+      bash -c "
+      python3 manage.py collectstatic --noinput &&
+      python3 manage.py migrate &&
+      python3 manage.py runserver 0.0.0.0:8880"
     environment:
       - DEBUG=True
       - DATABASE_HOST=db
     volumes:
-      - .:/myapp
+      - .:/app
       - static_volume:/code/static
     ports:
-      - "8000:8000"
+      - "8880:8880"
     depends_on:
       db:
         condition: service_healthy
@@ -28,7 +27,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -42,6 +41,9 @@ services:
       - redis_data:/data
     env_file:
       - .env
+    depends_on:
+      - db
+      - web
 
   celery:
     build: .
@@ -51,7 +53,7 @@ services:
       - redis
       - db
     command: |
-       bash -c "celery -A config  worker --loglevel=info  --pool=eventlet"
+      bash -c "celery -A config  worker --loglevel=info  --pool=eventlet"
     volumes:
       - .:/app
 
@@ -61,7 +63,7 @@ services:
     env_file:
       - .env
     command: |
-       bash -c "celery -A config  beat --loglevel=info"
+      bash -c "celery -A config  beat --loglevel=info"
     depends_on:
       - redis
       - db
@@ -77,6 +79,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - static_volume:/myapp/staticfiles
+    depends_on:
+      - celery_beat
+      - web
 
 networks:
   app_network:
