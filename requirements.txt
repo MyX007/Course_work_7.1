@@ -19,3 +19,4 @@ celery
 django-celery-beat
 drf-spectacular
 eventlet
+gunicorn
