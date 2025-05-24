@@ -1,13 +1,11 @@
-version: '3.9'
-
 services:
   web:
     build: .
     command: |
       bash -c "python3 manage.py collectstatic --noinput"
       bash -c "python3 manage.py makemigrations"
-      bash -c "python3 manage.py manage.py migrate"
-      bash -c "python3 manage.py python3 manage.py runserver 0.0.0.0:8000"
+      bash -c "python3 manage.py migrate"
+      bash -c "python3 manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=True
       - DATABASE_HOST=db
