@@ -74,6 +74,7 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
+          server-dir: var/www/Course_work_7.1
 
       - name: Deploy to server
         run: |
