@@ -2,6 +2,7 @@ services:
   web:
     build: .
     command: |
+      bash -c "source venv/bin/activate"
       bash -c "python3 manage.py collectstatic --noinput"
       bash -c "python3 manage.py makemigrations"
       bash -c "python3 manage.py migrate"
